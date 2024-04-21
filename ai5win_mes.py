@@ -1,8 +1,8 @@
-import struct
 import json
 import os
-from library.silky_mes import SilkyMesScript, SilkyMesScriptError
+import struct
 
+from library.silky_mes import SilkyMesScript, SilkyMesScriptError
 
 class AI5WINScript(SilkyMesScript):
     special_symbols_library = (
@@ -25,12 +25,12 @@ class AI5WINScript(SilkyMesScript):
 
     header_version_threshold = 2
     supported_versions = (
-        #-1, "Isaku, etc. ~ 1997 y."),
+        # -1, "Isaku, etc. ~ 1997 y."),
         # Too much troubles without any need.
         # Every game with -1 has also releases with older versions of the engine.
         (0, "Koihime, etc. ~ 1999 y."),
         (1, "Elf Classics, etc. ~ 2000 y."),
-        (2, "Shangrlia Multipack, etc. ~ 2005 y.", ),
+        (2, "Shangrlia Multipack, etc. ~ 2005 y.",),
     )
 
     struct_def = "*STRUCT*"
@@ -60,9 +60,9 @@ class AI5WINScript(SilkyMesScript):
     # to make support of labels easier.
 
     command_library = {
-        #-1: (
+        # -1: (
         #    (0x12, 'c', ''),
-        #),
+        # ),
         0: (  # Less than ideal, since I could not run actual tests on the game itself.
             (0x00, '', 'RETURN'),
             (0x01, 'S', 'TEXT'),
@@ -209,11 +209,11 @@ class AI5WINScript(SilkyMesScript):
     )
 
     ancient_struct_library = (
-        #(0x02, '', ''),  # B?
-        #(0x06, '6', ''),
-        #(0x07, 'B', ''),
+        # (0x02, '', ''),  # B?
+        # (0x06, '6', ''),
+        # (0x07, 'B', ''),
 
-        #(0xe5, 'R', ''),
+        # (0xe5, 'R', ''),
     )
 
     offsets_library = {
@@ -512,7 +512,7 @@ class AI5WINScript(SilkyMesScript):
             args.append([])
             commands.append(current_byte)
             analyzer = str(hex(current_byte))[2:]
-            if (len(analyzer) == 1):
+            if len(analyzer) == 1:
                 analyzer = '0' + analyzer
 
             lib_index = -1
@@ -587,7 +587,7 @@ class AI5WINScript(SilkyMesScript):
             current_byte = current_byte[0]  # Get int from byte in the fastest way possible.
             lib_index = -1
             for i in range(len(self.command_library[self.version])):
-                if (current_byte == self.command_library[self.version][i][0]):
+                if current_byte == self.command_library[self.version][i][0]:
                     lib_index = i
                     break
             if lib_index != -1:
@@ -683,11 +683,11 @@ class AI5WINScript(SilkyMesScript):
             # argument number changing.
 
             if argument in AI5WINScript.set_I.instances:
-                args_bytes += AI5WINScript.set_I(argument_list[current_argument], appendix+argument)
+                args_bytes += AI5WINScript.set_I(argument_list[current_argument], appendix + argument)
             elif argument in AI5WINScript.set_H.instances:
-                args_bytes += AI5WINScript.set_H(argument_list[current_argument], appendix+argument)
+                args_bytes += AI5WINScript.set_H(argument_list[current_argument], appendix + argument)
             elif argument in AI5WINScript.set_B.instances:
-                args_bytes += AI5WINScript.set_B(argument_list[current_argument], appendix+argument)
+                args_bytes += AI5WINScript.set_B(argument_list[current_argument], appendix + argument)
             elif argument in AI5WINScript.set_S.instances:
                 args_bytes += AI5WINScript.set_S(argument_list[current_argument], current_encoding)
             elif argument in AI5WINScript.set_6.instances:
@@ -1006,7 +1006,7 @@ class AI5WINScript(SilkyMesScript):
         except UnicodeDecodeError:
             print("Decode error:", string)
             return length, string
-        
+
     @staticmethod
     def get_R(mode: int, in_file, encoding: str) -> tuple:
         """Get crypto string from the mode and input file (pointer at the start of string)."""
@@ -1059,7 +1059,7 @@ class AI5WINScript(SilkyMesScript):
             print("Decode error:", string)
             return length, string.hex(' ')
 
-        #for special_symbol in AI5WINScript.special_symbols_library:
+        # for special_symbol in AI5WINScript.special_symbols_library:
         #    string = string.replace(special_symbol[0], special_symbol[1])
 
     @staticmethod
@@ -1083,7 +1083,6 @@ class AI5WINScript(SilkyMesScript):
         except UnicodeDecodeError:
             print("Decode error:", string)
             return length, string
-
 
 class AI5WINScriptError(SilkyMesScriptError):
     pass

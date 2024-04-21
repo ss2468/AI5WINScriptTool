@@ -16,7 +16,6 @@ def rotate_left(byter, rotator):
     news = int(news, 2)
     return news
 
-
 def hack_string(list_bytes, encoding: str = "cp932") -> str:
     """Hack string crypto."""
     import struct
@@ -25,7 +24,7 @@ def hack_string(list_bytes, encoding: str = "cp932") -> str:
     i = 0
 
     string = b''
-    #list_bytes = bytes.fromhex("E3 F2")
+    # list_bytes = bytes.fromhex("E3 F2")
     # E3 -> 82 C8.
     # F2 -> 81 41.
     # -
@@ -36,18 +35,17 @@ def hack_string(list_bytes, encoding: str = "cp932") -> str:
         if this_byte < 0x81:
             string += struct.pack('B', this_byte + 0x20)
             i += 1
-            string += list_bytes[i:i+1]
+            string += list_bytes[i:i + 1]
             i += 1
         else:
             zlo = (this_byte - 0x7e1b) & 0xffff
             string += struct.pack('>H', zlo)
-            #zlo = (this_byte - 0x5000) & 0xffff
-            #string += struct.pack('>H', zlo)
+            # zlo = (this_byte - 0x5000) & 0xffff
+            # string += struct.pack('>H', zlo)
             i += 1
     print(list_bytes.hex(' '))
     print(string.hex(' '))
     print(string.decode(encoding='shift-jis', errors='replace'))
-
 
 def test(mode: str):
     # diss, ass, diss_for_hack, spec_cmp, string_hack...
@@ -75,14 +73,49 @@ def test(mode: str):
         new_string = bytes.fromhex(hex_string)
         print(hack_string(new_string))
 
-
 def main():
     gui = AI5WINMesGUI()
     return True
 
-
 if __name__ == '__main__':
-    if debug:
-        test("string_hack")
-    else:
-        main()
+    # if debug:
+    #     test("string_hack")
+    # else:
+    #     main()
+
+    from ai5win_mes import AI5WINScript
+    import os
+
+    def find_suffix(dir, suffixs):
+        allfiles = []
+        for i in suffixs:
+            files = [
+                dir + "/" + j for j in os.listdir(dir)
+                if os.path.isfile(os.path.join(dir, j)) and j.endswith(i)
+            ]
+            allfiles.extend(files)
+        return allfiles
+
+    # 使用AI5WINArcTool-main拆包，会生成一个mes.arc.keys，打包arc时需要输入其中的4个参数（第4个为16进制）作为密钥
+
+    # 批量拆包
+    # 注意version，对应不同时期的游戏
+    path = "C:/Program Files (x86)/AliceSoft/lovepower/mes/"
+    files = find_suffix(path, ["MES"])
+    for i in files:
+        base_name = i.replace(".MES", "")
+        script_mes = "{}.MES".format(base_name)
+        file_txt = "{}.txt".format(base_name)
+        new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
+        new_script.disassemble()
+
+    # # 批量打包
+    # # fixme 打包可能出现编码问题，搜索cp932或SHIFT_JISX0213
+    # path = "C:/Program Files (x86)/AliceSoft/lovepower/txt/"
+    # files = find_suffix(path, ["txt"])
+    # for i in files:
+    #     base_name = i.replace(".txt", "")
+    #     script_mes = "{}.MES".format(base_name)
+    #     file_txt = "{}.txt".format(base_name)
+    #     new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
+    #     new_script.assemble()
