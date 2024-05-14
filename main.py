@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
     # 批量拆包
     # 注意version，对应不同时期的游戏
-    path = "C:/Program Files (x86)/AliceSoft/lovepower/mes/"
+    path = "C:/Users/Administrator/UntitledProjects/test/mes"
     files = find_suffix(path, ["MES"])
     for i in files:
         base_name = i.replace(".MES", "")
@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     # # 批量打包
     # # fixme 打包可能出现编码问题，搜索cp932或SHIFT_JISX0213
-    # path = "C:/Program Files (x86)/AliceSoft/lovepower/txt/"
+    # path = "C:/Users/Administrator/UntitledProjects/test/txt"
     # files = find_suffix(path, ["txt"])
     # for i in files:
     #     base_name = i.replace(".txt", "")

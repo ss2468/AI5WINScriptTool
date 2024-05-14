@@ -3,7 +3,7 @@ import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
 
 from ai5win_mes import AI5WINScript
-from library.silky_mes_gui import SilkyMesGUI
+from silky_mes_gui import SilkyMesGUI
 
 class AI5WINMesGUI(SilkyMesGUI):
     ver_sep = ":   "

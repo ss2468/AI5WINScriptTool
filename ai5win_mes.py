@@ -2,7 +2,7 @@ import json
 import os
 import struct
 
-from library.silky_mes import SilkyMesScript, SilkyMesScriptError
+from silky_mes import SilkyMesScript, SilkyMesScriptError
 
 class AI5WINScript(SilkyMesScript):
     special_symbols_library = (
