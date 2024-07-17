@@ -96,11 +96,11 @@ if __name__ == '__main__':
             allfiles.extend(files)
         return allfiles
 
-    # 使用AI5WINArcTool-main拆包，会生成一个mes.arc.keys，打包arc时需要输入其中的4个参数（第4个为16进制）作为密钥
+    # 使用AI5WINArcTool拆包，会生成一个mes.arc.keys，打包arc时需要输入其中的4个参数（第4个为16进制）作为密钥
 
-    # 批量拆包
+    # 批量解压
     # 注意version，对应不同时期的游戏
-    path = "C:/Users/Administrator/UntitledProjects/test/mes"
+    path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/mes"
     files = find_suffix(path, ["MES"])
     for i in files:
         base_name = i.replace(".MES", "")
@@ -109,9 +109,8 @@ if __name__ == '__main__':
         new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
         new_script.disassemble()
 
-    # # 批量打包
-    # # fixme 打包可能出现编码问题，搜索cp932或SHIFT_JISX0213
-    # path = "C:/Users/Administrator/UntitledProjects/test/txt"
+    # # 批量压缩
+    # path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/txt"
     # files = find_suffix(path, ["txt"])
     # for i in files:
     #     base_name = i.replace(".txt", "")
