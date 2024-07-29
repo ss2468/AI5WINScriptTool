@@ -96,25 +96,26 @@ if __name__ == '__main__':
             allfiles.extend(files)
         return allfiles
 
-    # 使用AI5WINArcTool拆包，会生成一个mes.arc.keys，打包arc时需要输入其中的4个参数（第4个为16进制）作为密钥
+    # 使用AI5WINArcTool拆包，会生成一个mes.arc.keys，打包arc时需要输入其中的4个参数作为密钥
+    # 第4个参数为name的长度，十六进制，转换为十进制输入
 
-    # 批量解压
-    # 注意version，对应不同时期的游戏
-    path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/mes"
-    files = find_suffix(path, ["MES"])
-    for i in files:
-        base_name = i.replace(".MES", "")
-        script_mes = "{}.MES".format(base_name)
-        file_txt = "{}.txt".format(base_name)
-        new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
-        new_script.disassemble()
-
-    # # 批量压缩
-    # path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/txt"
-    # files = find_suffix(path, ["txt"])
+    # # 批量解压
+    # # 注意version，对应不同时期的游戏
+    # path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/mes"
+    # files = find_suffix(path, ["MES"])
     # for i in files:
-    #     base_name = i.replace(".txt", "")
+    #     base_name = i.replace(".MES", "")
     #     script_mes = "{}.MES".format(base_name)
     #     file_txt = "{}.txt".format(base_name)
     #     new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
-    #     new_script.assemble()
+    #     new_script.disassemble()
+
+    # 批量压缩
+    path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/txt"
+    files = find_suffix(path, ["txt"])
+    for i in files:
+        base_name = i.replace(".txt", "")
+        script_mes = "{}.MES".format(base_name)
+        file_txt = "{}.txt".format(base_name)
+        new_script = AI5WINScript(script_mes, file_txt, version=2, verbose=True, debug=False)
+        new_script.assemble()
